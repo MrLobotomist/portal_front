@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Types in CommonState
 interface CommonState {
@@ -29,10 +29,7 @@ const commonSlice = createSlice({
 });
 
 // Export actions
-export const {
-  setHomeLink,
-  setPathPrefix,
-} = commonSlice.actions;
+export const { setHomeLink, setPathPrefix } = commonSlice.actions;
 
 // Export reducer
 export default commonSlice.reducer;

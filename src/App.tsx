@@ -1,37 +1,20 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { setHomeLink } from "@store/common.ts";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Index from "@/pages/index.tsx";
-import { useDispatch } from "react-redux";
-import { lime, purple } from "@mui/material/colors";
-
-const theme = createTheme({
-  palette: {
-    primary: lime,
-    secondary: purple,
-  },
-});
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useGetPostsQuery } from './shared/api/api';
+import Home from '@/pages/home/ui/home.tsx';
 function App() {
-  const dispatch = useDispatch();
-
-  if (location.origin.includes("localhost")) {
-    dispatch(setHomeLink("http://localhost:443"));
-  } else {
-    // Можно добавить другие origin
-    // Если приложуха - часть домена можно забить prefix
-  }
+  // Replace 1 with the resource ID you want to fetch
+  const { data, isLoading } = useGetPostsQuery();
 
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/"} element={<Index />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path={'/'} element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+    // <div>
+    //   {isLoading == false ? <p>{data.toString()}</p> : null}
+    //   {/* Render your component based on the API data and loading/error states */}
+    // </div>
   );
 }
-
 export default App;
