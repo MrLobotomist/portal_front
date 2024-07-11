@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import commonReducer from '@store/common.ts';
-import { api } from '@/shared/api/api.ts';
+import authReducer from '@/features/auth/model/auth.ts';
+import { api } from '@/app/api/api.ts';
+
 
 const store = configureStore({
   reducer: {
-    common: commonReducer,
+    auth: authReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

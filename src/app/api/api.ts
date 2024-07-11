@@ -1,5 +1,7 @@
-import { BaseQueryFn, createApi } from '@reduxjs/toolkit/query/react';
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { BaseQueryFn } from '@reduxjs/toolkit/query/react';
+import { AxiosError, AxiosRequestConfig } from 'axios';
+import axiosInstance from '@/app/providers/axiosInstance.ts';
 
 // Создание базового запроса с использованием axios
 const axiosBaseQuery =
@@ -18,7 +20,7 @@ const axiosBaseQuery =
   > =>
   async ({ url, method, data, params, headers }) => {
     try {
-      const result = await axios({
+      const result = await axiosInstance({
         url: baseUrl + url,
         method,
         data,
@@ -40,14 +42,7 @@ const axiosBaseQuery =
 // Создание API с использованием RTK Query
 export const api = createApi({
   baseQuery: axiosBaseQuery({
-    baseUrl: 'https://jsonplaceholder.typicode.com',
+    baseUrl: 'http://localhost:8000/api',
   }),
-  endpoints: (builder) => ({
-    getPosts: builder.query({
-      query: () => ({ url: '/posts', method: 'GET' }),
-    }),
-  }),
+  endpoints: () => ({}),
 });
-
-// Экспорт хука для использования в компонентах
-export const { useGetPostsQuery } = api;
