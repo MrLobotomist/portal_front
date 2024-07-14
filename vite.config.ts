@@ -12,4 +12,11 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  css: {
+    preprocessorOptions: {
+      sass: {
+        additionalData: `@import "@/shared/styles/variables"; @import "@/shared/styles/mixins";`,
+      },
+    },
+  },
 });

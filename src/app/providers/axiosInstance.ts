@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '@/app/store/store.ts';
-import { setTokens } from '@/features/auth/model/auth.ts';
+import { setTokens } from '@/features/auth/model/authSlice.ts';
 
 const axiosInstance = axios.create({ baseURL: 'http://localhost:8000/api' });
 
@@ -46,20 +46,15 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(config);
       } catch (refreshError) {
         // Если совсем потеря потерь - просим новый токен
-        const access = await axiosInstance
-          .post('/token/', {
-            username: 'pavel',
-            password: '1',
-          })
-          .then((r) => {
-            store.dispatch(
-              setTokens({
-                accessToken: r.data.access,
-                refreshToken: r.data.refresh,
-              }),
-            );
-            return r.data.access;
-          });
+        const access = await axiosInstance.post('/auth/').then((r) => {
+          store.dispatch(
+            setTokens({
+              accessToken: r.data.access,
+              refreshToken: r.data.refresh,
+            }),
+          );
+          return r.data.access;
+        });
 
         config.headers.Authorization = `Bearer ${access}`;
         // Повторим оригинальный запрос с новым токеном

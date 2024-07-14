@@ -1,5 +1,5 @@
 import { api } from '@/app/api/api.ts';
-import { setTokens } from '@/features/auth/model/auth.ts';
+import { setTokens } from '@/features/auth/model/authSlice.ts';
 
 export const refresh = api.injectEndpoints({
   endpoints: (builder) => ({

@@ -1,0 +1,55 @@
+@import '@/shared/styles/variables'
+@import '@/shared/styles/mixins'
+
+body
+  font-family: Arial, sans-serif
+  background-color: $background-color
+  color: $primary-color
+  display: flex
+  justify-content: center
+  width: 100vw
+  height: 100vh
+  margin: 0
+  padding: 0
+
+  .news-card
+    background-color: $background-color
+    border-radius: $border-radius
+    display: block
+    text-align: center
+    width: 1000px
+    overflow: hidden
+    @include box-shadow(rgba(0, 0, 0, 0.1))
+    transition: transform 0.2s
+    border: 1px solid #007bff
+
+    &:hover
+      transform: translateY(-5px)
+
+    &__image
+      width: 100%
+      padding-top: 56.25% // 16:9 aspect ratio
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+
+    &__content
+      padding: $padding
+
+    &__title
+      text-align: center
+      font-size: 1.5em
+      color: $primary-color
+
+    &__description
+      font-size: 1em
+      margin: 0 0 20px 0
+      color: $secondary-color
+
+    &__link
+      font-size: 1em
+      color: $link-color
+      text-decoration: none
+
+      &:hover
+        text-decoration: underline

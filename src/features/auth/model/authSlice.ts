@@ -14,7 +14,7 @@ const initialState: authState = {
 
 // Create state slice
 const authSlice = createSlice({
-  name: 'common',
+  name: 'auth',
   initialState,
   reducers: {
     setTokens: (

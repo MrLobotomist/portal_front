@@ -1,16 +1,12 @@
 import { api } from '@/app/api/api.ts';
-import { setTokens } from '@/features/auth/model/auth.ts';
+import { setTokens } from '@/features/auth/model/authSlice.ts';
 
-export const login = api.injectEndpoints({
+export const auth = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
-      query: ({ username, password }) => ({
-        url: '/token/',
+      query: () => ({
+        url: '/auth/',
         method: 'POST',
-        body: {
-          username: username,
-          password: password,
-        },
       }),
       async onQueryStarted(_body, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
@@ -26,4 +22,4 @@ export const login = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useLoginMutation } = login;
+export const { useLoginMutation } = auth;
