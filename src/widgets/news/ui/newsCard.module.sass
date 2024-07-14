@@ -1,0 +1,50 @@
+@import '@/shared/styles/variables'
+@import '@/shared/styles/mixins'
+
+.card-wrapper
+  width: 1000px
+
+.newsCard
+  background-color: $background-color
+  border-radius: $border-radius
+  display: flex
+  width: 100%
+  overflow: hidden
+  @include box-shadow(rgba(0, 0, 0, 0.1))
+  border: 1px solid #555555
+  margin-top: 0.5rem
+  margin-bottom: 0.5rem
+
+
+  &__image-wrapper
+    position: relative
+    width: calc(100% - 40px)
+    margin: 20px
+
+  &__image
+    width: 100%
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    object-fit: cover
+
+  &__content
+    padding: $padding
+
+  &__title
+    text-align: center
+    font-size: 1.5em
+    color: $primary-color
+
+  &__description
+    font-size: 1.5em
+    margin: 0 0 20px 0
+    color: $secondary-color
+
+  &__link
+    font-size: 1em
+    color: $link-color
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline

@@ -1,0 +1,43 @@
+$primary-color: #3498db
+$secondary-color: #2ecc71
+$font-color: #ffffff
+
+@import '@/shared/styles/mixins'
+
+.navbar
+  display: flex
+  align-items: center
+  justify-content: start
+  background-color: $primary-color
+  @include box-shadow(rgba(0, 0, 0, 0.1))
+  padding: 10px 20px
+  height: 56px
+  width: 100%
+
+.navbar__brand
+  font-size: 1.5em
+  color: $font-color
+  text-decoration: none
+
+.navbar__menu
+  list-style: none
+  display: flex
+  margin: 0
+  padding: 0
+
+.navbar__item
+  margin-left: 20px
+
+.navbar__link
+  color: $font-color
+  text-decoration: none
+  font-size: 1.2em
+
+  &:hover
+    color: $secondary-color
+
+.navbar__profile
+  margin-left: auto
+
+  &:hover
+    color: $secondary-color
