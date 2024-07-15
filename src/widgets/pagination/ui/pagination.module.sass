@@ -1,0 +1,40 @@
+@import '@/shared/styles/variables'
+
+.paginator
+  display: flex
+  justify-content: center
+  list-style: none
+  padding: 0
+
+.paginator_title
+  font-size: 30px
+
+.paginator_item
+  background-color: $paginator-bg-color
+  color: $paginator-color
+  border-radius: $paginator-border-radius
+  padding: $paginator-padding
+  margin: $paginator-margin
+  cursor: pointer
+  font-size: $paginator-font-size
+  border: $paginator-border
+  transition: background-color 0.3s, color 0.3s
+
+  &:hover
+    background-color: $paginator-hover-bg-color
+
+  &.active
+    background-color: $paginator-active-bg-color
+    color: $paginator-active-color
+
+  &.disabled
+    color: $paginator-disabled-color
+    cursor: not-allowed
+
+.paginator_link
+  text-decoration: none
+  color: inherit
+  display: block
+  width: 100%
+  height: 100%
+  text-align: center

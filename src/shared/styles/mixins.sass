@@ -1,4 +1,48 @@
+@import '@/shared/styles/variables'
+
+// Common
 =box-shadow($color)
-  -webkit-box-shadow: 0px 4px 6px $color
-  -moz-box-shadow: 0px 4px 6px $color
-  box-shadow: 0px 4px 6px $color
+  -webkit-box-shadow: 0 4px 6px $color
+  -moz-box-shadow: 0 4px 6px $color
+  box-shadow: 0 4px 6px $color
+
+// Grid
+=container
+  width: 100%
+  margin-left: auto
+  margin-right: auto
+  padding-left: $gutter
+  padding-right: $gutter
+
+  // Default max width for larger screens
+  @media (min-width: 1200px)
+    max-width: 1200px
+
+  // Max width for medium screens
+  @media (min-width: 992px) and (max-width: 1199px)
+    max-width: 960px
+
+  // Max width for small screens
+  @media (min-width: 768px) and (max-width: 991px)
+    max-width: 720px
+
+  // Max width for extra small screens
+  @media (max-width: 767px)
+    max-width: 540px
+
+=row()
+  display: flex
+  flex-wrap: wrap
+
+=col($col-span)
+  flex: 0 0 percentage($col-span / $columns)
+  max-width: calc(#{percentage($col-span / $columns)} - #{$gutter})
+  padding-left: $gutter / 2
+  padding-right: $gutter / 2
+  display: flex
+  align-items: center
+
+=offset($offset-span)
+  display: flex
+  flex-wrap: wrap
+  margin-left: percentage($offset-span / $columns)
