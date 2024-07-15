@@ -39,10 +39,14 @@ const axiosBaseQuery =
     }
   };
 
+const url = location.origin.includes('node')
+  ? 'http://vscode.vozduh.keenetic.link/proxy/8000/api'
+  : 'http://localhost:8000/api';
+
 // Создание API с использованием RTK Query
 export const api = createApi({
   baseQuery: axiosBaseQuery({
-    baseUrl: 'http://localhost:8000/api',
+    baseUrl: url,
   }),
   endpoints: () => ({}),
 });
