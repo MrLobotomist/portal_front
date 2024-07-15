@@ -2,7 +2,11 @@ import axios from 'axios';
 import store from '@/app/store/store.ts';
 import { setTokens } from '@/features/auth/model/authSlice.ts';
 
-const axiosInstance = axios.create({ baseURL: 'http://localhost:8000/api' });
+const url = location.origin.includes('node')
+  ? 'http://vscode.vozduh.keenetic.link/proxy/8000/api'
+  : 'http://localhost:8000/api';
+
+const axiosInstance = axios.create({ baseURL: url });
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -21,14 +25,14 @@ axiosInstance.interceptors.response.use(
   async (err) => {
     const state = store.getState();
     const refreshToken = state.auth.refreshToken;
-
     const { config } = err;
+    console.log('axios.asdsad', err);
     // Попытка обновления
-    if (err.response?.status === 401 && config) {
+    if ((err?.response?.status === 401 || err?.response == null) && config) {
       // Попробуем обновить токен
       try {
-        const access = await axiosInstance
-          .post('/token/refresh/', {
+        const access = await axios
+          .post(`${url}/token/refresh/`, {
             refresh: refreshToken,
           })
           .then((r) => {
@@ -46,7 +50,7 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(config);
       } catch (refreshError) {
         // Если совсем потеря потерь - просим новый токен
-        const access = await axiosInstance.post('/auth/').then((r) => {
+        const access = await axios.post(`${url}/auth/`).then((r) => {
           store.dispatch(
             setTokens({
               accessToken: r.data.access,
@@ -61,6 +65,7 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(config);
       }
     }
+
     // Обработка ошибок
     if (err.response) {
       // Сервер ответил с кодом, отличным от 2xx
