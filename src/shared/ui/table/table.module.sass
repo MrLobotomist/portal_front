@@ -1,0 +1,39 @@
+@import '@/shared/styles/variables'
+
+.table
+  width: calc(100% - 2rem)
+  min-width: 1000px
+  margin: 0 1rem 1rem 1rem
+  border-collapse: collapse
+  font-size: 18px
+  text-align: left
+
+  thead
+    tr
+      background-color: $table-color
+      color: #ffffff
+      text-align: left
+      font-weight: bold
+
+  th,
+  td
+    padding: 12px 15px
+
+  tbody
+    tr
+      border-bottom: 1px solid #dddddd
+
+      &:nth-of-type(even)
+        background-color: #f3f3f3
+
+      &:last-of-type
+        border-bottom: 2px solid $table-color
+
+      &.active-row
+        font-weight: bold
+        color: $table-color
+
+      &:hover
+        background-color: $table-color
+        cursor: pointer
+
