@@ -6,7 +6,7 @@ import { RootState } from '@/app/store/store.ts';
 import { Button } from '@/shared/ui/button/button.tsx';
 import { useEffect, useState } from 'react';
 import { UserService } from '@/entities/user/service/userService.ts';
-import { useUpdateProfileMutation } from '@/entities/user/api/user.ts';
+import { useUpdateProfileMutation } from '@/entities/profile/api/profile.ts';
 
 const UserProfile = () => {
   const [updateProfile] = useUpdateProfileMutation();

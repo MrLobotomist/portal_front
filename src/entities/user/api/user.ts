@@ -1,5 +1,5 @@
 import { api } from '@/app/api/api.ts';
-import { iUser, iUserProfile } from '@/entities/user/model/iUser.ts';
+import { iUser } from '@/entities/user/model/iUser.ts';
 import { setUser } from '@/entities/user/model/userSlice.ts';
 import store from '@/app/store/store.ts';
 
@@ -35,26 +35,6 @@ export const user = api.injectEndpoints({
     //     dispatch(setUser(data));
     //   },
     // }),
-    updateProfile: builder.mutation<iUserProfile, Partial<iUserProfile>>({
-      query: (profile) => {
-        console.log('profile', profile);
-        console.log('url', `/profile/${profile?.id}/`);
-        return {
-          url: `/profile/${profile?.id}/`,
-          method: 'PATCH',
-          body: { ...profile },
-        };
-      },
-      // async onQueryStarted(_body, { dispatch, queryFulfilled }) {
-      //   const state = store.getState();
-      //   const user = state.user.user;
-      //   const { data } = await queryFulfilled;
-      //   console.log('data', data);
-      //   if (user != null) {
-      //     dispatch(setUser({ ...user, profile: { ...data } }));
-      //   }
-      // },
-    }),
   }),
   overrideExisting: false,
 });
@@ -62,5 +42,4 @@ export const user = api.injectEndpoints({
 export const {
   useGetUserQuery,
   // useUpdateUserMutation,
-  useUpdateProfileMutation,
 } = user;
