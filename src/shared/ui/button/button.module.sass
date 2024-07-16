@@ -1,21 +1,10 @@
-.button
-  background-color: $button-bg-color
-  color: $button-color
-  border-radius: $button-border-radius
-  padding: $button-padding
-  font-size: $button-font-size
-  border: $button-border
-  cursor: pointer
-  transition: $button-transition
-  box-shadow: $button-box-shadow
-  text-align: center
-  display: inline-block
-  text-decoration: none
+@import '@/shared/styles/variables'
+@import '@/shared/styles/mixins'
 
-  &:hover
-    background-color: $button-hover-bg-color
-    box-shadow: $button-hover-box-shadow
+.button_primary
+  width: 100%
+  @include button-base($primary-color, darken($primary-color, 10%))
 
-  &:active
-    background-color: $button-active-bg-color
-    box-shadow: none
+.button_secondary
+  width: 100%
+  @include button-base($secondary-color, darken($secondary-color, 10%))

@@ -46,3 +46,21 @@
   display: flex
   flex-wrap: wrap
   margin-left: percentage($offset-span / $columns)
+
+=button-base($bg-color, $hover-color)
+  background-color: $bg-color
+  color: $font-color-white
+  padding: $padding
+  border: none
+  border-radius: $border-radius
+  font-size: $font-size
+  cursor: pointer
+  transition: background-color $primary-color, transform 0.3s
+
+  &:hover
+    background-color: $hover-color
+    transform: translateY(-2px)
+
+  &:active
+    transform: translateY(0)
+    transition: transform 0.1s

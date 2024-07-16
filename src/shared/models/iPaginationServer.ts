@@ -1,4 +1,4 @@
-export interface iPagination<T> {
+export interface iPaginationServer<T> {
   count: number;
   next: string | null;
   previous: string | null;
