@@ -5,6 +5,7 @@ import { RootState } from '@/app/store/store.ts';
 import { PaginationLib } from '@/features/pagination/lib/paginationLib.ts';
 import { v4 as uuidv4 } from 'uuid';
 import { PaginationService } from '@/features/pagination/service/paginationService.tsx';
+import { PaginatorItem } from '@/features/pagination/ui/paginator.item.tsx';
 
 export const Paginator = () => {
   const page = useSelector((state: RootState) => state.pagination.page);
@@ -19,61 +20,41 @@ export const Paginator = () => {
         <div className={`${grid.row}`}>
           <div className={`${grid.col_6}`} style={{ justifyContent: 'center' }}>
             <ul className={pagin.paginator}>
-              <li
-                className={PaginationLib.getClassButton(
-                  1,
-                  page,
-                  totalPage,
-                  'start',
-                )}
-                onClick={() => PaginationService.setPage(1)}
-              >
-                <span className={pagin.paginator_link}>В начало</span>
-              </li>
-              <li
-                className={PaginationLib.getClassButton(
-                  page - 1,
-                  page,
-                  totalPage,
-                  'prev',
-                )}
-                onClick={() => PaginationService.setPage(page - 1)}
-              >
-                <span className={pagin.paginator_link}>{'<'}</span>
-              </li>
+              <PaginatorItem
+                currentLink={1}
+                page={page}
+                totalPage={totalPage}
+                position={'start'}
+              />
+              <PaginatorItem
+                currentLink={page - 1}
+                page={page}
+                totalPage={totalPage}
+                position={'prev'}
+              />
               {PaginationLib.getPageNumbers(page, totalPage).map((item) => {
                 return (
-                  <li
-                    className={PaginationLib.getClassNumber(item, page)}
-                    onClick={() => PaginationService.setPage(item)}
+                  <PaginatorItem
+                    currentLink={item}
+                    page={page}
+                    totalPage={totalPage}
+                    position={'item'}
                     key={uuidv4()}
-                  >
-                    <span className={pagin.paginator_link}>{item}</span>
-                  </li>
+                  />
                 );
               })}
-              <li
-                className={PaginationLib.getClassButton(
-                  page + 1,
-                  page,
-                  totalPage,
-                  'next',
-                )}
-                onClick={() => PaginationService.setPage(page + 1)}
-              >
-                <span className={pagin.paginator_link}>{'>'}</span>
-              </li>
-              <li
-                className={PaginationLib.getClassButton(
-                  totalPage,
-                  page,
-                  totalPage,
-                  'end',
-                )}
-                onClick={() => PaginationService.setPage(totalPage)}
-              >
-                <span className={pagin.paginator_link}>В конец</span>
-              </li>
+              <PaginatorItem
+                currentLink={page + 1}
+                page={page}
+                totalPage={totalPage}
+                position={'next'}
+              />
+              <PaginatorItem
+                currentLink={totalPage}
+                page={page}
+                totalPage={totalPage}
+                position={'end'}
+              />
             </ul>
           </div>
           <div className={`${grid.col_6}`} style={{ justifyContent: 'center' }}>

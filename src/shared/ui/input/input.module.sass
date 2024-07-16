@@ -5,7 +5,7 @@
   width: 100%
   margin: $input-margin 0
 
-input
+input, textarea
   padding: $input-padding
   margin: $input-margin
   border-radius: $input-border-radius
@@ -45,5 +45,24 @@ label
 
 input:not(:placeholder-shown) + label
   transform: translateY($label-height)
+  font-size: 12px
+  color: $primary-color
+
+textarea
+  resize: none
+  width: calc(100% - #{3 * $margin})
+  height: 100px
+
+  &:focus
+    border: $input-focus-border
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5)
+
+    & + label
+      transform: translateY(-77px)
+      font-size: 12px
+      color: $primary-color
+
+textarea:not(:placeholder-shown) + label
+  transform: translateY(-77px)
   font-size: 12px
   color: $primary-color

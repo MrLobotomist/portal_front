@@ -6,14 +6,14 @@ import React from 'react';
 interface PaginatorItemProps {
   currentLink: number;
   page: number;
-  total: number;
+  totalPage: number;
   position: 'start' | 'end' | 'next' | 'prev' | 'item';
 }
 
-const PaginatorItem: React.FC<PaginatorItemProps> = ({
+export const PaginatorItem: React.FC<PaginatorItemProps> = ({
   currentLink,
   page,
-  total,
+  totalPage,
   position,
 }) => {
   let content = '';
@@ -39,10 +39,13 @@ const PaginatorItem: React.FC<PaginatorItemProps> = ({
       className={PaginationLib.getClassButton(
         currentLink,
         page,
-        total,
+        totalPage,
         position,
       )}
-      onClick={() => PaginationService.setPage(page - 1)}
+      onClick={() =>
+        PaginationLib.isNotDisabled(currentLink, page, totalPage, position) &&
+        PaginationService.setPage(currentLink)
+      }
     >
       <span className={pagin.paginator_link}>{content}</span>
     </li>

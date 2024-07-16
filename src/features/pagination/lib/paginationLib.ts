@@ -11,26 +11,36 @@ export class PaginationLib {
     return pageNumbers;
   }
 
-  public static getClassNumber(currentNumber: number, page: number) {
-    if (currentNumber != page) return `${pagin.paginator_item}`;
-    else return `${pagin.paginator_item} ${pagin.active}`;
-  }
-
   public static getClassButton(
     currentLink: number,
     page: number,
-    total: number,
+    totalPage: number,
     position: 'start' | 'end' | 'next' | 'prev' | 'item',
   ) {
     if (page == 1 && position == 'start')
       return `${pagin.paginator_item} ${pagin.disabled}`;
     if (currentLink < 1 && position == 'prev')
       return `${pagin.paginator_item} ${pagin.disabled}`;
-    if (currentLink > total && position == 'next')
+    if (currentLink > totalPage && position == 'next')
       return `${pagin.paginator_item} ${pagin.disabled}`;
-    if (page == total && position == 'end')
+    if (page == totalPage && position == 'end')
       return `${pagin.paginator_item} ${pagin.disabled}`;
     if (currentLink == page) return `${pagin.paginator_item} ${pagin.active}`;
     return `${pagin.paginator_item}`;
+  }
+
+  public static isNotDisabled(
+    currentLink: number,
+    page: number,
+    totalPage: number,
+    position: 'start' | 'end' | 'next' | 'prev' | 'item',
+  ) {
+    return !(
+      (page == 1 && position == 'start') ||
+      (currentLink < 1 && position == 'prev') ||
+      (currentLink > totalPage && position == 'next') ||
+      (page == totalPage && position == 'end') ||
+      currentLink == page
+    );
   }
 }

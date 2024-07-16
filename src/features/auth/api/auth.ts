@@ -14,6 +14,7 @@ export const auth = api.injectEndpoints({
           setTokens({
             accessToken: data.access,
             refreshToken: data.refresh,
+            user_id: data.user_id,
           }),
         );
       },

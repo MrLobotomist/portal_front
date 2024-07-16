@@ -1,15 +1,15 @@
 // Тип для UserProfile
-interface UserProfile {
+export interface iUserProfile {
   id: number;
   name: string;
   surname: string;
   patronymic: string;
-  position?: string | null;
-  company?: string | null;
-  phone_number?: string | null;
-  biography?: string | null;
+  position: string | null;
+  company: string | null;
+  phone_number: string | null;
+  biography: string | null;
   date_of_birth: string;
-  image?: string | null;
+  image: string | null;
   user: number;
 }
 
@@ -19,5 +19,5 @@ export interface iUser {
   username: string;
   email: string;
   groups: string[];
-  profile: UserProfile;
+  profile: iUserProfile;
 }

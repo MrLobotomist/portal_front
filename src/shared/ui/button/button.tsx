@@ -4,7 +4,7 @@ import React from 'react';
 interface ButtonProps {
   text?: string;
   onClick?: () => void;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'action';
 }
 
 export const Button: React.FC<ButtonProps> = ({ text, variant, onClick }) => {
@@ -15,6 +15,9 @@ export const Button: React.FC<ButtonProps> = ({ text, variant, onClick }) => {
       break;
     case 'secondary':
       className = btn.button_secondary;
+      break;
+    case 'action':
+      className = btn.action_button;
       break;
     default:
       className = btn.button_primary;
