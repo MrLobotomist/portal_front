@@ -4,7 +4,7 @@ import modal from '@/shared/ui/modal/modal.module.sass';
 interface Modal {
   isOpen: boolean;
   title: string;
-  content: string;
+  content: React.ReactNode;
   onClose: () => void;
 }
 

@@ -5,12 +5,20 @@ import React, { useState } from 'react';
 import { Column } from 'react-table';
 import Table from '@/shared/ui/table/table.tsx';
 import Modal from '@/shared/ui/modal/modal.tsx';
+import { useForm } from 'react-hook-form';
+
 interface User {
   id: number;
   name: string;
   email: string;
   age: number;
 }
+
+type FormData = {
+  firstName: string
+  lastName: string
+}
+
 export const Users = () => {
   const data: User[] = React.useMemo(
     () => [
@@ -32,27 +40,54 @@ export const Users = () => {
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const { register, handleSubmit, reset } = useForm();
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    closeModal();
+  } );
 
   return (
     <div className={styles.body}>
       <Navbar />
       <Table columns={columns} data={data} />
-      <h1>Custom Modal Example</h1>
-      <button
-        onClick={openModal}
-        style={{ padding: '10px 20px', fontSize: '1rem' }}
-      >
-        Open Modal
-      </button>
-      <Modal
-        isOpen={isModalOpen}
-        title="Modal Title"
-        content="This is the content of the modal."
-        onClose={closeModal}
-      />
+      <div>
+        <h1>Custom Modal Example</h1>
+        <button
+          onClick={openModal}
+          style={{ padding: '10px 20px', fontSize: '1rem' }}
+        >
+          Open Modal
+        </button>
+        <Modal
+          isOpen={isModalOpen}
+          title="Modal Title"
+          content={
+            <form onSubmit={onSubmit}>
+              <label>First Name</label>
+              <input {...register("firstName")} />
+              <label>Last Name</label>
+              <input {...register("lastName")} />
+              <button
+                type="submit"
+              >
+                SetValue
+              </button>
+            </form>
+          }
+          onClose={closeModal}></Modal>
+      </div>
       <Footer />
     </div>
   );

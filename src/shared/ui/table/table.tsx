@@ -25,9 +25,9 @@ const UserTable: React.FC<UserTableProps> = ({ columns, data }) => {
     <table {...getTableProps()} className={table.table}>
       <thead>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
+          <tr {...headerGroup.getHeaderGroupProps()} key={`tr_${headerGroup.id}`}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()} key={column.id}>
+              <th {...column.getHeaderProps()} key={`th_${column.id}`}>
                 {column.render('Header')}
               </th>
             ))}
@@ -38,9 +38,9 @@ const UserTable: React.FC<UserTableProps> = ({ columns, data }) => {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()} key={row.id}>
+            <tr {...row.getRowProps()} key={`row_${row.id}`}>
               {row.cells.map((cell) => (
-                <td {...cell.getCellProps()} key={cell.row.id}>
+                <td {...cell.getCellProps()} key={`cell.row_${cell.column.id}`}>
                   {cell.render('Cell')}
                 </td>
               ))}
