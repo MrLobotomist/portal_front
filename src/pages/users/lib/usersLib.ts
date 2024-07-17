@@ -19,6 +19,7 @@ export class UsersLib {
       params.date_of_birth = state.userFilter.date_of_birth;
     if (state.userFilter.groups != null)
       params.groups = state.userFilter.groups;
+    if (state.user.ordering != null) params.ordering = state.user.ordering;
     params.page = state.pagination.page;
     params.page_size = state.pagination.pageSize;
     return params;

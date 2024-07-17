@@ -6,9 +6,18 @@ import { iUser } from '@/entities/user/model/iUser.ts';
 interface TableProps<T extends object> {
   columns: Column<T>[];
   data: T[];
+  ordering: string | null;
+  setOrdering: (ordering: string) => void;
+  headerToParam: { [key: string]: string };
 }
 
-const UserTable: React.FC<TableProps<iUser>> = ({ columns, data }) => {
+const UserTable: React.FC<TableProps<iUser>> = ({
+  columns,
+  data,
+  ordering,
+  setOrdering,
+  headerToParam,
+}) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable<iUser>(
       {
@@ -27,11 +36,22 @@ const UserTable: React.FC<TableProps<iUser>> = ({ columns, data }) => {
             key={`tr_${headerGroup.id}`}
           >
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()} key={`th_${column.id}`}>
+              <th
+                {...column.getHeaderProps()}
+                key={`th_${column.id}`}
+                onClick={() =>
+                  setOrdering(headerToParam[column.render('Header') as string])
+                }
+              >
                 {column.render('Header')}
-                {/*<span>*/}
-                {/*  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}*/}
-                {/*</span>*/}
+                <span>
+                  {headerToParam[column.render('Header') as string] == ordering
+                    ? ' 🔽'
+                    : '-' + headerToParam[column.render('Header') as string] ==
+                        ordering
+                      ? ' 🔼'
+                      : ''}
+                </span>
               </th>
             ))}
           </tr>

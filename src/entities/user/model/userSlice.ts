@@ -6,6 +6,7 @@ interface newsState {
   user: iUser | null;
   tempUser: iTempUser | null;
   users: iUser[] | null;
+  ordering: string | null;
 }
 
 // Constructor
@@ -13,6 +14,7 @@ const initialState: newsState = {
   user: null,
   tempUser: null,
   users: null,
+  ordering: null,
 };
 
 // Create state slice
@@ -38,6 +40,9 @@ const userSlice = createSlice({
     resetUsers: (state) => {
       state.users = null;
     },
+    setOrdering: (state, action: PayloadAction<string | null>) => {
+      state.ordering = action.payload;
+    },
   },
 });
 
@@ -49,6 +54,7 @@ export const {
   resetTempUser,
   setUsers,
   resetUsers,
+  setOrdering,
 } = userSlice.actions;
 
 // Export reducer

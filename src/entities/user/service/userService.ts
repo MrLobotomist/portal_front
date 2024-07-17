@@ -1,5 +1,5 @@
 import store from '@/app/store/store.ts';
-import { setTempUser } from '@/entities/user/model/userSlice.ts';
+import { setOrdering, setTempUser } from '@/entities/user/model/userSlice.ts';
 import { iTempUser } from '@/entities/user/model/iTempUser.ts';
 
 export class UserService {
@@ -77,5 +77,17 @@ export class UserService {
 
   public static setEmail = (email: string): void => {
     UserService.updateFields({ email: email });
+  };
+
+  public static setOrdering = (field: string): void => {
+    const state = store.getState();
+    const ordering = state.user.ordering;
+    if (field === ordering) {
+      store.dispatch(setOrdering('-' + field));
+    } else if (field === '-' + ordering) {
+      store.dispatch(setOrdering(null));
+    } else {
+      store.dispatch(setOrdering(field));
+    }
   };
 }

@@ -4,8 +4,6 @@ import styles from '@/shared/styles/main.module.sass';
 import React, { useEffect } from 'react';
 import { Column } from 'react-table';
 import Table from '@/shared/ui/table/table.tsx';
-// import Modal from '@/shared/ui/modal/modal.tsx';
-// import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store.ts';
 import { iUser } from '@/entities/user/model/iUser.ts';
@@ -16,10 +14,21 @@ import { PaginationService } from '@/features/pagination/service/paginationServi
 import { UserFilterService } from '@/features/userFilters/service/userFilterSevrice.ts';
 import { UsersLib } from '@/pages/users/lib/usersLib.ts';
 import grid from '@/shared/styles/grid.module.sass';
+import { UserService } from '@/entities/user/service/userService.ts';
+
+const headerToParam = {
+  ID: 'id',
+  Фамилия: 'surname',
+  Имя: 'name',
+  Отчество: 'patronymic',
+  Email: 'email',
+  'Дата рождения': 'date_of_birth',
+  Права: 'groups',
+};
 
 export const Users = () => {
   const [getUsers, { data }] = useGetUsersFilterMutation();
-
+  const ordering = useSelector((state: RootState) => state.user.ordering);
   const users = useSelector((state: RootState) => state.user.users);
 
   const columns: Column<iUser>[] = React.useMemo(
@@ -61,6 +70,16 @@ export const Users = () => {
   }, [filtersUpdate]);
 
   useEffect(() => {
+    if (ordering) {
+      getUsers(UsersLib.getParams());
+      PaginationService.setPaginationUpdate(false);
+      if (data != null) {
+        PaginationService.setTotal(data.count);
+      }
+    }
+  }, [ordering]);
+
+  useEffect(() => {
     if (paginationUpdate) {
       getUsers(UsersLib.getParams());
       PaginationService.setPaginationUpdate(false);
@@ -83,7 +102,15 @@ export const Users = () => {
         <div style={{ width: '100%' }}>
           <UserFilter />
         </div>
-        {users != null ? <Table columns={columns} data={users} /> : null}
+        {users != null ? (
+          <Table
+            columns={columns}
+            data={users}
+            ordering={ordering}
+            setOrdering={(x) => UserService.setOrdering(x)}
+            headerToParam={headerToParam}
+          />
+        ) : null}
         <Paginator />
       </div>
       <Footer />
