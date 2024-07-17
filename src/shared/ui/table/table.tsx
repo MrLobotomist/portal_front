@@ -1,22 +1,16 @@
 import React from 'react';
 import { useTable, Column } from 'react-table';
 import table from '@/shared/ui/table/table.module.sass';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  age: number;
-}
+import { iUser } from '@/entities/user/model/iUser.ts';
 
 interface UserTableProps {
-  columns: Column<User>[];
-  data: User[];
+  columns: Column<iUser>[];
+  data: iUser[];
 }
 
 const UserTable: React.FC<UserTableProps> = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<User>({
+    useTable<iUser>({
       columns,
       data,
     });
@@ -25,7 +19,10 @@ const UserTable: React.FC<UserTableProps> = ({ columns, data }) => {
     <table {...getTableProps()} className={table.table}>
       <thead>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()} key={`tr_${headerGroup.id}`}>
+          <tr
+            {...headerGroup.getHeaderGroupProps()}
+            key={`tr_${headerGroup.id}`}
+          >
             {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()} key={`th_${column.id}`}>
                 {column.render('Header')}

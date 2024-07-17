@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
   async (err) => {
     const state = store.getState();
     const refreshToken = state.auth.refreshToken;
-    // const user_id = state.auth.user_id;
+    const user_id = state.auth.user_id;
     const { config } = err;
     // Попытка обновления
     if ((err?.response?.status === 401 || err?.response == null) && config) {
@@ -67,23 +67,23 @@ axiosInstance.interceptors.response.use(
       }
     }
 
-    // if (err?.response?.status === 404 && (user_id == null || isNaN(user_id))) {
-    //   // Если совсем потеря потерь - просим новый токен
-    //   const access = await axios.post(`${url}/auth/`).then((r) => {
-    //     store.dispatch(
-    //       setTokens({
-    //         accessToken: r.data.access,
-    //         refreshToken: r.data.refresh,
-    //         user_id: r.data.id,
-    //       }),
-    //     );
-    //     return r.data.access;
-    //   });
-    //
-    //   config.headers.Authorization = `Bearer ${access}`;
-    //   // Повторим оригинальный запрос с новым токеном
-    //   return axiosInstance(config);
-    // }
+    if (err?.response?.status === 404 && (user_id == null || isNaN(user_id))) {
+      // Если совсем потеря потерь - просим новый токен
+      const access = await axios.post(`${url}/auth/`).then((r) => {
+        store.dispatch(
+          setTokens({
+            accessToken: r.data.access,
+            refreshToken: r.data.refresh,
+            user_id: r.data.id,
+          }),
+        );
+        return r.data.access;
+      });
+
+      config.headers.Authorization = `Bearer ${access}`;
+      // Повторим оригинальный запрос с новым токеном
+      return axiosInstance(config);
+    }
 
     // Обработка ошибок
     if (err.response) {

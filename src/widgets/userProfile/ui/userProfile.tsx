@@ -4,15 +4,25 @@ import { Input } from '@/shared/ui/input/input.tsx';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store/store.ts';
 import { Button } from '@/shared/ui/button/button.tsx';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserService } from '@/entities/user/service/userService.ts';
-import { useUpdateProfileMutation } from '@/entities/profile/api/profile.ts';
+import {
+  useUpdateProfileImgMutation,
+  useUpdateProfileMutation,
+} from '@/entities/profile/api/profile.ts';
+import { useUpdateUserMutation } from '@/entities/user/api/user.ts';
+import { InputFile } from '@/shared/ui/input/inputFile.tsx';
+import { ReturnWithoutImage } from '@/widgets/userProfile/lib/userProfileLib.ts';
 
 const UserProfile = () => {
   const [updateProfile] = useUpdateProfileMutation();
+  const [updateProfileImg] = useUpdateProfileImgMutation();
+  const [updateUser] = useUpdateUserMutation();
   const user = useSelector((state: RootState) => state.user.tempUser);
   const userRoot = useSelector((state: RootState) => state.user.user);
   const [edit, setEdit] = useState<boolean>(false);
+  const [groupsEdit, setGroupsEdit] = useState<boolean>(false);
+  const [profileImage, setProfileImage] = useState<File | null>(null); // новый стейт
 
   useEffect(() => {
     UserService.init();
@@ -23,10 +33,31 @@ const UserProfile = () => {
     UserService.init();
   }, [userRoot]);
 
-  const btnHandler = () => {
-    if (edit && userRoot != null)
-      updateProfile({ ...userRoot?.profile, ...user?.profile });
+  const editGroupsHandler = () => {
+    if (groupsEdit && userRoot != null) updateUser();
+    setGroupsEdit(!groupsEdit);
+  };
+
+  const editHandler = async () => {
+    if (edit && userRoot != null) {
+      if (profileImage) {
+        const formData = new FormData();
+        formData.append('image', profileImage);
+        await updateProfileImg(formData).then((r) => console.log(r));
+      }
+      updateProfile({
+        ...ReturnWithoutImage(userRoot?.profile),
+        ...ReturnWithoutImage(user?.profile),
+      });
+    }
     setEdit(!edit);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfileImage(e.target.files[0]);
+      UserService.setImage(e.target.value);
+    }
   };
 
   return (
@@ -38,9 +69,10 @@ const UserProfile = () => {
               <div className={styles.avatarContainer}>
                 <img
                   src={
-                    user?.profile?.image ?? 'https://via.placeholder.com/150'
+                    userRoot?.profile?.image ??
+                    'https://via.placeholder.com/150'
                   }
-                  alt={user?.username}
+                  alt={userRoot?.username}
                   className={styles.avatar}
                 />
               </div>
@@ -62,7 +94,7 @@ const UserProfile = () => {
                   <Button
                     text={edit ? 'Сохранить' : 'Редактировать'}
                     variant={edit ? 'action' : 'primary'}
-                    onClick={() => btnHandler()}
+                    onClick={() => editHandler()}
                   />
                 </div>
               </div>
@@ -152,6 +184,17 @@ const UserProfile = () => {
                   />
                 </div>
 
+                {/* IMAGE */}
+                {edit ? (
+                  <div className={`${grid.col_6} ${grid.offset_6}`}>
+                    <InputFile
+                      value={user?.profile?.image ?? ''}
+                      placeholder={'Аватар:'}
+                      onChange={(e) => handleImageChange(e)}
+                    />
+                  </div>
+                ) : null}
+
                 {/* AUTH SECTION */}
                 <div className={grid.col_12}>
                   <div className={styles.content_section}>
@@ -167,13 +210,46 @@ const UserProfile = () => {
                 <div className={`${grid.col_4}`}>
                   <Input placeholder={'Username:'} value={user?.username} />
                 </div>
-                <div className={`${grid.col_4}`}>
-                  <Input
-                    type={'password'}
-                    placeholder={'Password:'}
-                    value={'smehovpavel@gmail.com'}
+                <div
+                  className={grid.col_4}
+                  style={{ marginTop: 'calc(1rem + 5px)' }}
+                >
+                  <Button
+                    text={groupsEdit ? 'Сохранить' : 'Редактировать права'}
+                    variant={groupsEdit ? 'action' : 'primary'}
+                    onClick={() => editGroupsHandler()}
                   />
                 </div>
+                {groupsEdit ? (
+                  <div className={`${grid.col_4} ${grid.offset_8}`}>
+                    <input
+                      type={'checkbox'}
+                      id={'portal_admin'}
+                      checked={user?.groups?.includes('portal_admin')}
+                    />
+                    <label htmlFor={'portal_admin'}>Portal admin</label>
+                  </div>
+                ) : null}
+                {groupsEdit ? (
+                  <div className={`${grid.col_4} ${grid.offset_8}`}>
+                    <input
+                      type={'checkbox'}
+                      id={'portal_writer'}
+                      checked={user?.groups?.includes('portal_writer')}
+                    />
+                    <label htmlFor={'portal_writer'}>Portal writer</label>
+                  </div>
+                ) : null}
+                {groupsEdit ? (
+                  <div className={`${grid.col_4} ${grid.offset_8}`}>
+                    <input
+                      type={'checkbox'}
+                      id={'portal_reader'}
+                      checked={user?.groups?.includes('portal_reader')}
+                    />
+                    <label htmlFor={'portal_reader'}>Portal reader</label>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

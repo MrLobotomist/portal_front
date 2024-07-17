@@ -5,12 +5,14 @@ import { iTempUser } from '@/entities/user/model/iTempUser.ts';
 interface newsState {
   user: iUser | null;
   tempUser: iTempUser | null;
+  users: iUser[] | null;
 }
 
 // Constructor
 const initialState: newsState = {
   user: null,
   tempUser: null,
+  users: null,
 };
 
 // Create state slice
@@ -30,12 +32,24 @@ const userSlice = createSlice({
     resetTempUser: (state) => {
       state.tempUser = null;
     },
+    setUsers: (state, action: PayloadAction<iUser[] | null>) => {
+      state.users = action.payload;
+    },
+    resetUsers: (state) => {
+      state.users = null;
+    },
   },
 });
 
 // Export actions
-export const { setUser, resetUser, setTempUser, resetTempUser } =
-  userSlice.actions;
+export const {
+  setUser,
+  resetUser,
+  setTempUser,
+  resetTempUser,
+  setUsers,
+  resetUsers,
+} = userSlice.actions;
 
 // Export reducer
 export default userSlice.reducer;

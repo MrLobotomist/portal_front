@@ -8,6 +8,22 @@
   font-size: 18px
   text-align: left
 
+  // Default max width for larger screens
+  @media (min-width: 1200px)
+    max-width: 1200px
+
+  // Max width for medium screens
+  @media (min-width: 992px) and (max-width: 1199px)
+    max-width: 960px
+
+  // Max width for small screens
+  @media (min-width: 768px) and (max-width: 991px)
+    max-width: 720px
+
+  // Max width for extra small screens
+  @media (max-width: 767px)
+    max-width: 540px
+
   thead
     tr
       background-color: $table-color
@@ -34,6 +50,6 @@
         color: $table-color
 
       &:hover
-        background-color: $table-color
+        background-color: lighten($table-color, 60%)
         cursor: pointer
 

@@ -22,8 +22,19 @@ export const profile = api.injectEndpoints({
         }
       },
     }),
+    updateProfileImg: builder.mutation<iUserProfile, FormData>({
+      query: (img) => {
+        const state = store.getState();
+        return {
+          url: `/profile/${state.user.user?.profile.id}/`,
+          method: 'PATCH',
+          data: img,
+        };
+      },
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useUpdateProfileMutation } = profile;
+export const { useUpdateProfileMutation, useUpdateProfileImgMutation } =
+  profile;

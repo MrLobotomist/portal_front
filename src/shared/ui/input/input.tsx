@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 interface TextFieldProps {
   placeholder?: string;
   id?: string;
-  type?: 'text' | 'password' | 'email' | 'url' | 'date' | 'textarea';
+  type?: 'text' | 'password' | 'email' | 'url' | 'date' | 'textarea' | 'file';
   onChange?: (val: string) => void;
-  value?: string | null;
+  value?: string | number | null;
 }
 
 export const Input: React.FC<TextFieldProps> = ({

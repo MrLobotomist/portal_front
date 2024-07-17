@@ -5,6 +5,7 @@ import newsFilterReducer from '@/features/newsFilters/model/newsFilterSlice.ts';
 import paginationReducer from '@/features/pagination/model/paginationSlice.ts';
 import userReducer from '@/entities/user/model/userSlice.ts';
 import { api } from '@/app/api/api.ts';
+import userFilterReducer from '@/features/userFilters/model/userFilterSlice.ts';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     newsFilter: newsFilterReducer,
     pagination: paginationReducer,
     user: userReducer,
+    userFilter: userFilterReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

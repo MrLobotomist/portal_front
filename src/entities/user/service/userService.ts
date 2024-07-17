@@ -6,7 +6,9 @@ export class UserService {
   public static init() {
     const state = store.getState();
     const user = state.user.user;
-    store.dispatch(setTempUser(user));
+    store.dispatch(
+      setTempUser({ ...user, profile: { ...user?.profile, image: null } }),
+    );
   }
 
   public static reset() {
@@ -54,5 +56,9 @@ export class UserService {
 
   public static setBiography = (biography: string): void => {
     UserService.updateFields({ profile: { biography: biography } });
+  };
+
+  public static setImage = (image: string): void => {
+    UserService.updateFields({ profile: { image: image } });
   };
 }
