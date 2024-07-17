@@ -4,9 +4,46 @@ import styles from '@/widgets/userProfile/ui/userProfile.module.sass';
 import { Input } from '@/shared/ui/input/input.tsx';
 import { UserService } from '@/entities/user/service/userService.ts';
 import { InputFile } from '@/shared/ui/input/inputFile.tsx';
-import React from 'react';
+import React, { useState } from 'react';
+import { ReturnWithoutImage } from '@/widgets/userProfile/lib/userProfileLib.ts';
+import {
+  useUpdateProfileImgMutation,
+  useUpdateProfileMutation,
+} from '@/entities/profile/api/profile.ts';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store/store.ts';
 
-const UserData:React.FC<> = ({ user, edit, editHandler }) => {
+export const UserData = () => {
+  const [updateProfile] = useUpdateProfileMutation();
+  const [updateProfileImg] = useUpdateProfileImgMutation();
+
+  const user = useSelector((state: RootState) => state.user.tempUser);
+  const userRoot = useSelector((state: RootState) => state.user.user);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+
+  const editHandler = async () => {
+    if (edit && userRoot != null) {
+      if (profileImage) {
+        const formData = new FormData();
+        formData.append('image', profileImage);
+        await updateProfileImg(formData).then((r) => console.log(r));
+      }
+      updateProfile({
+        ...ReturnWithoutImage(userRoot?.profile),
+        ...ReturnWithoutImage(user?.profile),
+      });
+    }
+    setEdit(!edit);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfileImage(e.target.files[0]);
+      UserService.setImage(e.target.value);
+    }
+  };
+
   return (
     <>
       <div className={grid.row}>

@@ -4,6 +4,7 @@ import { setUser, setUsers } from '@/entities/user/model/userSlice.ts';
 import store from '@/app/store/store.ts';
 import { iPaginationServer } from '@/shared/models/iPaginationServer.ts';
 import { iGetUserParams } from '@/entities/user/model/iGetUserParams.ts';
+import { iTempUser } from '@/entities/user/model/iTempUser.ts';
 
 export const user = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -58,14 +59,12 @@ export const user = api.injectEndpoints({
         dispatch(setUsers(data.results));
       },
     }),
-    updateUser: builder.mutation<iUser, void>({
-      query: () => {
-        const state = store.getState();
-        const user = state.user.tempUser;
+    updateUser: builder.mutation<iUser, iTempUser>({
+      query: (user) => {
         return {
           url: `/users/${user?.id}/`,
-          method: 'PUT',
-          body: { ...user },
+          method: 'PATCH',
+          data: { ...user },
         };
       },
       async onQueryStarted(_body, { dispatch, queryFulfilled }) {

@@ -2,7 +2,7 @@ import btn from '@/shared/ui/button/button.module.sass';
 import React from 'react';
 
 interface ButtonProps {
-  text?: string;
+  text?: string | React.ReactNode;
   onClick?: () => void;
   variant?: 'primary' | 'secondary' | 'action';
 }

@@ -14,11 +14,13 @@ const Navbar = () => {
           Главная
         </Link>
       </div>
-      <div className={styles.navbar__item}>
-        <Link to="/users" className={styles.navbar__link}>
-          Пользователи
-        </Link>
-      </div>
+      {user?.groups.includes('portal_admin') ? (
+        <div className={styles.navbar__item}>
+          <Link to="/users" className={styles.navbar__link}>
+            Пользователи
+          </Link>
+        </div>
+      ) : null}
       <div className={styles.navbar__profile}>
         <Link to="/profile" className={styles.navbar__link}>
           Профиль {user?.username != null ? user?.username : ''}

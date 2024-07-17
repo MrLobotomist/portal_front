@@ -21,6 +21,7 @@ export class UserService {
     store.dispatch(
       setTempUser({
         ...user,
+        ...updatedProps,
         profile: { ...user?.profile, ...updatedProps.profile },
       }),
     );
@@ -60,5 +61,21 @@ export class UserService {
 
   public static setImage = (image: string): void => {
     UserService.updateFields({ profile: { image: image } });
+  };
+
+  public static setGroup = (group: string): void => {
+    const state = store.getState();
+    const user = state.user.tempUser;
+    if (user?.groups?.includes(group)) {
+      const newGroup = user.groups?.filter((x) => group != x);
+      UserService.updateFields({ groups: newGroup });
+    } else {
+      const currentGroups = user?.groups ?? [];
+      UserService.updateFields({ groups: [...currentGroups, group] });
+    }
+  };
+
+  public static setEmail = (email: string): void => {
+    UserService.updateFields({ email: email });
   };
 }
