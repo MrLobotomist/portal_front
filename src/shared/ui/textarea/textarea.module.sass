@@ -1,0 +1,51 @@
+@import '@/shared/styles/variables'
+
+.input_container
+  position: relative
+  width: 100%
+  margin: $input-margin 0
+
+textarea
+  padding: $input-padding
+  margin: $input-margin
+  border-radius: $input-border-radius
+  border: $input-border
+  background-color: $input-background
+  font-size: $input-font-size
+  color: $primary-color
+  width: calc(100% - #{3 * $margin})
+  outline: none
+  transition: border-color 0.3s, box-shadow 0.3s
+  resize: none
+  height: 500px
+
+  &:focus
+    border: $input-focus-border
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5)
+
+    & + label
+      transform: translateY(-277px)
+      font-size: 12px
+      color: $primary-color
+
+  &::placeholder
+    color: transparent
+
+  &.error
+    border: 1px solid #e74c3c
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.5)
+
+label
+  position: absolute
+  top: calc(50%)
+  left: calc(2 * #{$margin})
+  transform: translateY(-50%)
+  color: $secondary-color
+  font-size: $input-font-size
+  pointer-events: none
+  transition: transform 0.3s, font-size 0.3s, color 0.3s
+
+textarea:not(:placeholder-shown) + label
+  transform: translateY(-277px)
+  font-size: 12px
+  color: $primary-color

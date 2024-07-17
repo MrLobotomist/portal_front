@@ -6,12 +6,14 @@ import paginationReducer from '@/features/pagination/model/paginationSlice.ts';
 import userReducer from '@/entities/user/model/userSlice.ts';
 import { api } from '@/app/api/api.ts';
 import userFilterReducer from '@/features/userFilters/model/userFilterSlice.ts';
+import newsEditSlice from '@/features/newsEdit/model/newsEditSlice.ts';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     news: newsReducer,
     newsFilter: newsFilterReducer,
+    newsEdit: newsEditSlice,
     pagination: paginationReducer,
     user: userReducer,
     userFilter: userFilterReducer,

@@ -17,7 +17,8 @@ export class UsersLib {
     if (state.userFilter.email != null) params.email = state.userFilter.email;
     if (state.userFilter.date_of_birth != null)
       params.date_of_birth = state.userFilter.date_of_birth;
-    if (state.userFilter.groups != null) params.groups = state.userFilter.groups;
+    if (state.userFilter.groups != null)
+      params.groups = state.userFilter.groups;
     params.page = state.pagination.page;
     params.page_size = state.pagination.pageSize;
     return params;

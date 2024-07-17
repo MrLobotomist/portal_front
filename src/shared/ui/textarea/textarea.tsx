@@ -1,4 +1,4 @@
-import input from '@/shared/ui/input/input.module.sass';
+import input from '@/shared/ui/textarea/textarea.module.sass';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,7 +18,7 @@ interface TextFieldProps {
   value?: string | number | null;
 }
 
-export const Input: React.FC<TextFieldProps> = ({
+export const Textarea: React.FC<TextFieldProps> = ({
   type,
   id,
   placeholder,

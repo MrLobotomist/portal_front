@@ -1,19 +1,22 @@
 import React from 'react';
-import { useTable, Column } from 'react-table';
+import { useTable, useSortBy, Column } from 'react-table';
 import table from '@/shared/ui/table/table.module.sass';
 import { iUser } from '@/entities/user/model/iUser.ts';
 
-interface UserTableProps {
-  columns: Column<iUser>[];
-  data: iUser[];
+interface TableProps<T extends object> {
+  columns: Column<T>[];
+  data: T[];
 }
 
-const UserTable: React.FC<UserTableProps> = ({ columns, data }) => {
+const UserTable: React.FC<TableProps<iUser>> = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<iUser>({
-      columns,
-      data,
-    });
+    useTable<iUser>(
+      {
+        columns,
+        data,
+      },
+      useSortBy, // Добавляем хук сортировки
+    );
 
   return (
     <table {...getTableProps()} className={table.table}>
@@ -26,6 +29,9 @@ const UserTable: React.FC<UserTableProps> = ({ columns, data }) => {
             {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()} key={`th_${column.id}`}>
                 {column.render('Header')}
+                {/*<span>*/}
+                {/*  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}*/}
+                {/*</span>*/}
               </th>
             ))}
           </tr>
