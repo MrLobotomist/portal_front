@@ -99,18 +99,19 @@ export const Users = () => {
     <div className={styles.body}>
       <Navbar />
       <div className={grid.container}>
-        <div style={{ width: '100%' }}>
+        <UserFilter />
+        <div className={grid.users}>
           <UserFilter />
-        </div>
-        {users != null ? (
-          <Table
-            columns={columns}
-            data={users}
-            ordering={ordering}
-            setOrdering={(x) => UserService.setOrdering(x)}
-            headerToParam={headerToParam}
-          />
-        ) : null}
+            {users != null ? (
+              <Table
+                columns={columns}
+                data={users}
+                ordering={ordering}
+                setOrdering={(x) => UserService.setOrdering(x)}
+                headerToParam={headerToParam}
+              />
+            ) : null}
+          </div>
         <Paginator />
       </div>
       <Footer />
