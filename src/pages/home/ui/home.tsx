@@ -57,14 +57,15 @@ const Home = () => {
 
       <div className={grid.container}>
         <NewsFilters />
-
-        <div className={grid.col_12} style={{ justifyContent: 'center' }}>
-          <div className={newsCard.cardWrapper}>
-            {data?.results != null
-              ? data?.results.map((newsItem) => (
-                  <NewsCard key={newsItem.id} news={newsItem} />
-                ))
-              : 'Новости отсутствуют'}
+        <div className={grid.base}>
+          <div className={grid.col_12} style={{ justifyContent: 'center' }}>
+            <div className={newsCard.cardWrapper}>
+              {data?.results != null
+                ? data?.results.map((newsItem) => (
+                    <NewsCard key={newsItem.id} news={newsItem} />
+                  ))
+                : 'Новости отсутствуют'}
+            </div>
           </div>
         </div>
       </div>
