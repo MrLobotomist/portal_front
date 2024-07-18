@@ -57,7 +57,7 @@ export const UserDataAuth = () => {
 
           <div className={`${grid.col_3}`}>
             <Checkbox
-              label={'Portal admin'}
+              label={'Admin'}
               checked={user?.groups?.includes('portal_admin') ?? false}
               onChange={
                 groupsEdit
@@ -69,7 +69,7 @@ export const UserDataAuth = () => {
 
           <div className={`${grid.col_3}`}>
             <Checkbox
-              label={'Portal writer'}
+              label={'Writer'}
               checked={user?.groups?.includes('portal_writer') ?? false}
               onChange={
                 groupsEdit
@@ -81,7 +81,7 @@ export const UserDataAuth = () => {
 
           <div className={`${grid.col_3}`}>
             <Checkbox
-              label={'Portal reader'}
+              label={'Reader'}
               checked={user?.groups?.includes('portal_reader') ?? false}
               onChange={
                 groupsEdit
