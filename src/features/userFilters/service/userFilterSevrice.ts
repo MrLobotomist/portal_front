@@ -8,8 +8,8 @@ import {
   setPatronymic,
   setSurname,
   setUserFilterUpdate,
+  resetUserFilter,
 } from '@/features/userFilters/model/userFilterSlice.ts';
-import { resetNewsFilter } from '@/features/newsFilters/model/newsFilterSlice.ts';
 
 export class UserFilterService {
   public static setID(value: number | null): void {
@@ -41,7 +41,7 @@ export class UserFilterService {
   }
 
   public static resetFilters(): void {
-    store.dispatch(resetNewsFilter());
+    store.dispatch(resetUserFilter());
     store.dispatch(setUserFilterUpdate(true));
   }
 
