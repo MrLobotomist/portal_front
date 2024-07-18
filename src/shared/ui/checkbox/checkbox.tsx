@@ -17,17 +17,17 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, checked, onChange }) => {
   return (
     <Button
       text={
-        <div className={grid.container}>
+        <div className={grid.container} style={{ margin: 0 }}>
           <div className={grid.row}>
-            <div className={grid.col_3}>
+            <div className={grid.col_3} style={{ height: '20px'}}>
               <input
                 type="checkbox"
                 checked={checked}
                 onChange={handleCheckboxChange}
-                style={{ width: '30px', height: '30px' }}
+                style={{ width: '30px'}}
               />
             </div>
-            <div className={grid.col_9}>
+            <div className={grid.col_9} style={{ height: '20px'}}>
               <p>{label}</p>
             </div>
           </div>
