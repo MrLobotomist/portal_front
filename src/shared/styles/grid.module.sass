@@ -3,6 +3,24 @@
 .container
   +container
 
+.base
+  +container
+  height: calc(100vh - 56px - #{4 * $margin} - 83px - 263px)
+  overflow-y: scroll
+  overflow-x: hidden
+
+.users
+  +container
+  height: calc(100vh - 56px - #{5 * $margin} - 166px - 95px - 158px)
+  overflow-y: scroll
+  overflow-x: hidden
+
+.profile
+  +container
+  height: calc(100vh - 56px - #{5 * $margin} - 158px)
+  overflow-y: scroll
+  overflow-x: hidden
+
 .row
   +row
 
