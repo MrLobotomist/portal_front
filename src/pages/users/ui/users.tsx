@@ -101,7 +101,6 @@ export const Users = () => {
       <div className={grid.container}>
         <UserFilter />
         <div className={grid.users}>
-          <UserFilter />
             {users != null ? (
               <Table
                 columns={columns}
