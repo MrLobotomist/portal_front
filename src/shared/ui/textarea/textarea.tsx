@@ -41,6 +41,7 @@ export const Textarea: React.FC<TextFieldProps> = ({
         />
       ) : (
         <textarea
+          className={input.textarea}
           id={uuid}
           value={value ?? ''}
           placeholder={placeholder ?? ''}
