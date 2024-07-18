@@ -7,7 +7,9 @@ export const Profile = () => {
   return (
     <div className={styles.body}>
       <Navbar />
-      <UserProfile />
+      <div className={grid.profile}>
+        <UserProfile />
+      </div>
       <Footer />
     </div>
   );
