@@ -18,11 +18,11 @@ import { UserService } from '@/entities/user/service/userService.ts';
 
 const headerToParam = {
   ID: 'id',
-  Фамилия: 'surname',
-  Имя: 'name',
-  Отчество: 'patronymic',
+  Фамилия: 'profile__surname',
+  Имя: 'profile__name',
+  Отчество: 'profile__patronymic',
   Email: 'email',
-  'Дата рождения': 'date_of_birth',
+  'Дата рождения': 'profile__date_of_birth',
   Права: 'groups',
 };
 
